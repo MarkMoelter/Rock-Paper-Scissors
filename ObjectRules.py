@@ -1,25 +1,35 @@
 from entities import Entities
+from outcomes import Outcomes
 
 
 class ObjectRules:
-    rules = {
-        (Entities.PAPER, Entities.ROCK): Entities.PAPER,
-        (Entities.SCISSORS, Entities.PAPER): Entities.SCISSORS,
-        (Entities.ROCK, Entities.SCISSORS): Entities.ROCK
-    }
-
-    def __init__(self, rules, player: Entities, cpu: Entities):
+    def __init__(self, player: Entities, cpu: Entities):
         self.player = player
         self.cpu = cpu
 
+    def winning_entity(self):
+        """Return the winning Entity, regardless of order"""
+        if self.player in {Entities.PAPER, Entities.ROCK} and self.cpu in {Entities.PAPER, Entities.ROCK}:
+            return Entities.PAPER
+
+        elif self.player in {Entities.PAPER, Entities.SCISSORS} and self.cpu in {Entities.PAPER, Entities.SCISSORS}:
+            return Entities.SCISSORS
+
+        elif self.player in {Entities.SCISSORS, Entities.ROCK} and self.cpu in {Entities.SCISSORS, Entities.ROCK}:
+            return Entities.ROCK
+
+        raise TypeError('Wrong Type')
+
     def get_winner(self):
+        """Return win, lose, or tie"""
         if self.player == self.cpu:
-            return 'Tie'
+            return Outcomes.TIE
 
-        # fixme the sets dont work, try lists and check if both elements are in list
-        winner = ObjectRules.rules[{self.player, self.cpu}]
+        elif self.player == self.winning_entity():
+            return Outcomes.WIN
+
+        return Outcomes.LOSE
 
 
-
-entity = ObjectRules(Entities.ROCK, Entities.PAPER)
-print(entity.get_winner())
+entity = ObjectRules(Entities.ROCK, Entities.SCISSORS)
+print(entity.winning_entity())
