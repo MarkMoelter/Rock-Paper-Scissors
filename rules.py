@@ -12,3 +12,4 @@ class WinConditions:
             return True
 
 
+

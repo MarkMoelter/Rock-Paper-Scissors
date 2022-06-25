@@ -20,5 +20,6 @@ class ObjectRules:
         winner = ObjectRules.rules[{self.player, self.cpu}]
 
 
+
 entity = ObjectRules(Entities.ROCK, Entities.PAPER)
 print(entity.get_winner())
