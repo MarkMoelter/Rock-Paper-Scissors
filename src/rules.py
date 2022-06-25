@@ -1,6 +1,7 @@
+import logging
+
 from entities import Entities
 from outcomes import Outcomes
-import logging
 
 logger = logging.getLogger(__name__)
 
