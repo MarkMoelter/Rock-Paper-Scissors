@@ -1,5 +1,8 @@
 from entities import Entities
 from outcomes import Outcomes
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ObjectRules:
@@ -9,12 +12,15 @@ class ObjectRules:
 
     def winning_entity(self):
         """Return the winning Entity, regardless of order"""
+        # paper vs rock
         if self.player in {Entities.PAPER, Entities.ROCK} and self.cpu in {Entities.PAPER, Entities.ROCK}:
             return Entities.PAPER
 
+        # paper vs scissors
         elif self.player in {Entities.PAPER, Entities.SCISSORS} and self.cpu in {Entities.PAPER, Entities.SCISSORS}:
             return Entities.SCISSORS
 
+        # scissors vs rock
         elif self.player in {Entities.SCISSORS, Entities.ROCK} and self.cpu in {Entities.SCISSORS, Entities.ROCK}:
             return Entities.ROCK
 
