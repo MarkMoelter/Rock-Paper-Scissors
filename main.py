@@ -1,10 +1,16 @@
-import src.utils as utils
-from src.gameloop import game_loop
+from src import log_init, game_loop
 
 if __name__ == '__main__':
-    logger = utils.log_init()
 
-    # todo make a UI
-    #  setup controller to facilitate converting player inputs into scores
-    n_rounds = input('Please enter the "best of _" rounds: ')
+    # logger setup
+    logger = log_init()
+    # logging.disable(logging.DEBUG)
+
+    # todo make an introductory UI, explain rules and goals
+    # todo setup controller to facilitate converting player inputs into scores
+
+    # collect the max number of rounds to be played
+    n_rounds = int(input('Please enter the "best of _" rounds: '))
+    logger.debug(f'Max rounds: {n_rounds}')  # record to debugger
+
     game_loop(n_rounds)
