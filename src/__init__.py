@@ -1,2 +1,2 @@
-from .utils import *
-from .gameloop import game_loop
+from .game import Game
+from .ui import UI

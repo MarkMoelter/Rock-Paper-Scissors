@@ -1,30 +1,23 @@
-import logging
-
-logger = logging.getLogger(__name__)
-
-
 class UI:
-    @staticmethod
-    def tie_message():
-        print('You tied!')
+    def __init__(self, name: str = 'Player'):
+        self.player_name = name
 
-    @staticmethod
-    def win_message():
-        print('You won!')
+    def tie_message(self):
+        print(f'{self.player_name} tied!')
 
-    @staticmethod
-    def lose_message():
-        print('You lost!')
+    def win_message(self):
+        print(f'{self.player_name} won!')
 
-    @staticmethod
-    def score_update(player_score, cpu_score):
-        print(f'Player score: {player_score}')
+    def lose_message(self):
+        print(f'{self.player_name} lost!')
+
+    def score_update(self, player_score, cpu_score):
+        print(f"{self.player_name}'s score: {player_score}")
         print(f'Cpu score: {cpu_score}')
         print('#####')
 
-    @staticmethod
-    def game_start_message():
-        return 'Please enter 0 for Rock, 1 for Paper, or 2 for Scissors: '
+    def game_start_message(self):
+        return f'{self.player_name}, please enter 0 for Rock, 1 for Paper, or 2 for Scissors: '
 
     @staticmethod
     def round_message(rounds):
