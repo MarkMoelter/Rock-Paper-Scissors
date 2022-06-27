@@ -1,5 +1,7 @@
-import random
 import logging
+
+from src.outcomes import Outcomes
+from src.single_game import single_game
 
 
 def best_of(max_rounds):
@@ -12,17 +14,19 @@ def game_loop(max_rounds, player_score=0, cpu_score=0):
     logger = logging.getLogger(__name__)
 
     while max(player_score, cpu_score) < best_of(max_rounds):
-        # todo use random to increase player score or cpu score to test condition
+        outcome = single_game()
 
-        # randomly assign scores to the player or cpu
-        if random.randint(0, 1) == 0:
+        # what happens after each game
+        if outcome == Outcomes.WIN:
             player_score += 1
-        else:
+            print('You won!')
+        elif outcome == Outcomes.LOSE:
             cpu_score += 1
+            print('You lost!')
+        else:
+            print('You tied!')
 
     # score update
     logger.debug('Final Scores: ')
     logger.debug(f'Player: {player_score}')
     logger.debug(f'Computer: {cpu_score}')
-
-    # todo put in winner

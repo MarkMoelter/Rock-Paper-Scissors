@@ -1,7 +1,7 @@
 import logging
 
-from entities import Entities
-from outcomes import Outcomes
+from src.entities import Entities
+from src.outcomes import Outcomes
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +11,7 @@ class Rules:
         self.player = player
         self.cpu = cpu
 
-    def winning_entity(self):
+    def __winning_entity(self):
         """Return the winning Entity, regardless of order"""
         # paper vs rock
         if self.player in {Entities.PAPER, Entities.ROCK} and self.cpu in {Entities.PAPER, Entities.ROCK}:
@@ -32,7 +32,7 @@ class Rules:
         if self.player == self.cpu:
             return Outcomes.TIE
 
-        elif self.player == self.winning_entity():
+        elif self.player == self.__winning_entity():
             return Outcomes.WIN
 
         return Outcomes.LOSE
