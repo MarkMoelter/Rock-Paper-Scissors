@@ -1,7 +1,6 @@
 from src import log_init, game_loop
 
 if __name__ == '__main__':
-
     # logger setup
     logger = log_init()
     # logging.disable(logging.DEBUG)
@@ -11,6 +10,6 @@ if __name__ == '__main__':
 
     # collect the max number of rounds to be played
     n_rounds = int(input('Please enter the "best of _" rounds: '))
-    logger.debug(f'Max rounds: {n_rounds}')  # record to debugger
 
+    # play the game
     game_loop(n_rounds)
