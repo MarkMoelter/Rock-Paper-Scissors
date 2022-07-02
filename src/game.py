@@ -1,4 +1,5 @@
 import random
+import os
 
 from src.entities import int_to_entity
 from src.outcomes import Outcomes
@@ -9,7 +10,8 @@ from src.ui import UI
 class Game:
     def __init__(self, max_rounds: int, ui: UI):
         """
-        Overarching game structure
+        Overarching game structure.
+
         :param max_rounds: The maximum number of games that can be played.
         """
         self.max_rounds = max_rounds
@@ -23,12 +25,14 @@ class Game:
     def single_game(self):
         """
         Plays a single game of Rock Paper Scissors.
+
         :return: The outcome of the game
         """
-        start_message = self.ui.game_start_message()
-        input_int = int(input(start_message))
-        # get entities from integers
-        player_entity = int_to_entity(input_int)
+
+        player_input = int(input(self.ui.entity_message()))
+
+        # convert int to the corresponding entities
+        player_entity = int_to_entity(player_input)
         cpu_entity = int_to_entity(random.randint(0, 2))
 
         print(f'You selected: {player_entity}')
@@ -44,19 +48,20 @@ class Game:
 
     def game_loop(self, player_score=0, cpu_score=0) -> None:
         """
-        Multi-game loop. Stops when the player or cpu reaches n/2 + 1
+        Multi-game loop. Stops when the player or cpu reaches n/2 + 1.
+
         :param player_score: Initialize the starting scores of the player for convenience.
         :param cpu_score: Initialize the starting scores for the cpu.
         """
 
         rounds = 1
         while max(player_score, cpu_score) < self.__best_of():
-
             # keep track of rounds
             self.ui.round_message(rounds)
 
             # play a single game
             outcome = self.single_game()
+            os.system('cls')
 
             # determine what happens after each round
             if outcome == Outcomes.WIN:
@@ -73,3 +78,8 @@ class Game:
                 self.ui.tie_message()
 
             self.ui.score_update(player_score, cpu_score)
+
+        if player_score > cpu_score:
+            print('Congratulations! You won!')
+        else:
+            print('Game Over')

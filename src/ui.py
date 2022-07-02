@@ -1,3 +1,6 @@
+import os
+
+
 class UI:
     def __init__(self, name: str = 'Player'):
         self.player_name = name
@@ -16,7 +19,7 @@ class UI:
         print(f'Cpu score: {cpu_score}')
         print('#####')
 
-    def game_start_message(self):
+    def entity_message(self):
         return f'{self.player_name}, please enter 0 for Rock, 1 for Paper, or 2 for Scissors: '
 
     @staticmethod

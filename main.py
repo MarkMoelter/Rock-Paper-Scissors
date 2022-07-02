@@ -3,7 +3,8 @@ import logging
 from src import Game, UI
 from utils import log_init
 
-if __name__ == '__main__':
+
+def main() -> None:
     # logger setup
     logger = log_init()
     logging.disable(logging.DEBUG)
@@ -16,3 +17,7 @@ if __name__ == '__main__':
 
     # play the game
     Game(n_rounds, user_interface).game_loop()
+
+
+if __name__ == '__main__':
+    main()
