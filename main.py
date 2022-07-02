@@ -1,6 +1,7 @@
 import logging
 
-from src import Game, UI
+from game import Game
+from ui import UI
 from utils import log_init
 
 

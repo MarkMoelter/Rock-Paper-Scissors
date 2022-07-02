@@ -1,10 +1,10 @@
 import random
 import os
 
-from src.entities import int_to_entity
-from src.outcomes import Outcomes
-from src.rules import Rules
-from src.ui import UI
+from entities import int_to_entity
+from outcomes import Outcomes
+from rules import Rules
+from ui import UI
 
 
 class Game:
