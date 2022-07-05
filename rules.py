@@ -11,23 +11,33 @@ class Rules:
         self.player = player
         self.cpu = cpu
 
-    def __winning_entity(self):
+    def winning_entity(self) -> Entities:
         """Return the winning Entity, regardless of order"""
+
+        entity_set = {self.player, self.cpu}
+
         # paper vs rock
-        if self.player in {Entities.PAPER, Entities.ROCK} and self.cpu in {Entities.PAPER, Entities.ROCK}:
+        if all(i in entity_set for i in {Entities.PAPER, Entities.ROCK}):
             return Entities.PAPER
+
         # paper vs scissors
-        elif self.player in {Entities.PAPER, Entities.SCISSORS} and self.cpu in {Entities.PAPER, Entities.SCISSORS}:
+        if all(i in entity_set for i in {Entities.PAPER, Entities.SCISSORS}):
             return Entities.SCISSORS
+
         # scissors vs rock
-        elif self.player in {Entities.SCISSORS, Entities.ROCK} and self.cpu in {Entities.SCISSORS, Entities.ROCK}:
+        if all(i in entity_set for i in {Entities.SCISSORS, Entities.ROCK}):
             return Entities.ROCK
+
         raise TypeError('Wrong Type')
 
-    def get_winner(self):
+    def get_winner(self) -> Outcomes:
         """Return win, lose, or tie"""
         if self.player == self.cpu:
             return Outcomes.TIE
-        if self.player == self.__winning_entity():
+        if self.player == self.winning_entity():
             return Outcomes.WIN
         return Outcomes.LOSE
+
+
+if __name__ == "__main__":
+    print(Rules(Entities.ROCK, Entities.PAPER).winning_entity())

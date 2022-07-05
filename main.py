@@ -13,11 +13,8 @@ def main() -> None:
     # instantiate the user interface
     user_interface = UI(input('Please enter your name: '))
 
-    # collect the max number of rounds to be played
-    n_rounds = int(input('Please enter the "best of _" rounds: '))
-
     # play the game
-    Game(n_rounds, user_interface).game_loop()
+    Game(user_interface).game_loop()
 
 
 if __name__ == '__main__':

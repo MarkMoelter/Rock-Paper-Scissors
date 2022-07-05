@@ -1,42 +1,35 @@
-import random
 import os
+import random
 
-from entities import int_to_entity
+from entities import Entities
 from outcomes import Outcomes
 from rules import Rules
 from ui import UI
 
 
 class Game:
-    def __init__(self, max_rounds: int, ui: UI):
+    def __init__(self, ui: UI):
         """
         Overarching game structure.
 
-        :param max_rounds: The maximum number of games that can be played.
+        :param ui: User interface
         """
-        self.max_rounds = max_rounds
         self.ui = ui
-        # todo integrate UI into code
+        self.win_rounds = int(input('Please enter the "first to _" rounds: '))
 
-    def __best_of(self) -> int:
-        """Formula to calculate the 'best of _' number of rounds"""
-        return (self.max_rounds // 2) + 1
-
-    def single_game(self):
+    def single_game(self) -> Outcomes:
         """
         Plays a single game of Rock Paper Scissors.
 
         :return: The outcome of the game
         """
-
-        player_input = int(input(self.ui.entity_message()))
+        player_input = int(input(self.ui.selection_message()))
 
         # convert int to the corresponding entities
-        player_entity = int_to_entity(player_input)
-        cpu_entity = int_to_entity(random.randint(0, 2))
+        player_entity = Entities(player_input)
+        cpu_entity = Entities(random.randint(0, 2))
 
-        print(f'You selected: {player_entity}')
-        print(f'CPU selected: {cpu_entity}')
+        self.ui.entity_message(player_entity, cpu_entity)
 
         outcome = Rules(
             player=player_entity,
@@ -54,10 +47,10 @@ class Game:
         :param cpu_score: Initialize the starting scores for the cpu.
         """
 
-        rounds = 1
-        while max(player_score, cpu_score) < self.__best_of():
+        while max(player_score, cpu_score) < self.win_rounds:
+
             # keep track of rounds
-            self.ui.round_message(rounds)
+            self.ui.round_message(player_score + cpu_score + 1)  # starts on round 1
 
             # play a single game
             outcome = self.single_game()
@@ -66,12 +59,10 @@ class Game:
             # determine what happens after each round
             if outcome == Outcomes.WIN:
                 player_score += 1
-                rounds += 1
                 self.ui.win_message()
 
             elif outcome == Outcomes.LOSE:
                 cpu_score += 1
-                rounds += 1
                 self.ui.lose_message()
 
             else:
@@ -79,7 +70,5 @@ class Game:
 
             self.ui.score_update(player_score, cpu_score)
 
-        if player_score > cpu_score:
-            print('Congratulations! You won!')
-        else:
-            print('Game Over')
+        # fixme set win condition in UI
+        self.ui.final_win_or_lose_message(player_score, cpu_score)
